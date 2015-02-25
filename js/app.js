@@ -21,28 +21,26 @@
 
     Demo.init = function() {
         var canvasContainer = document.getElementById('canvas-container'),
-            demoStart = document.getElementById('demo-start');
-        
-        demoStart.addEventListener('click', function() {
-            demoStart.style.display = 'none';
-        
-            _engine = Engine.create(canvasContainer, {
-                render: {
-                    options: {
-                        wireframes: true,
-                        showAngleIndicator: true,
-                        showDebug: true
-                    }
+        demoStart = document.getElementById('demo-start');
+    
+        _engine = Engine.create(canvasContainer, {
+            render: {
+                options: {
+                    wireframes: false,
+                    showAngleIndicator: true,
+                    showDebug: true
                 }
-            });
-
-            // Demo.fullscreen();
-
-            setTimeout(function() {
-                Engine.run(_engine);
-                Demo.updateScene();
-            }, 800);
+            }
         });
+
+        // Demo.fullscreen();
+
+
+        //MAY HAVE TO INCLUDE LOADING TIME LATER
+        // setTimeout(function() { 
+        Engine.run(_engine);
+        Demo.updateScene();
+        // }, 0);
         
         window.addEventListener('deviceorientation', Demo.updateGravity, true);
         window.addEventListener('touchstart', Demo.fullscreen);
@@ -146,10 +144,16 @@
         Engine.clear(_engine);
         
         var offset = 5;
-        World.addBody(_world, Bodies.rectangle(_sceneWidth * 0.5, -offset, _sceneWidth + 0.5, 50.5, { isStatic: true }));
-        World.addBody(_world, Bodies.rectangle(_sceneWidth * 0.5, _sceneHeight + offset, _sceneWidth + 0.5, 50.5, { isStatic: true }));
-        World.addBody(_world, Bodies.rectangle(_sceneWidth + offset, _sceneHeight * 0.5, 50.5, _sceneHeight + 0.5, { isStatic: true }));
-        World.addBody(_world, Bodies.rectangle(-offset, _sceneHeight * 0.5, 50.5, _sceneHeight + 0.5, { isStatic: true }));
+        var thickness = 10;
+        //BOUNDING BOX
+        World.addBody(_world, Bodies.rectangle(_sceneWidth * 0.5, -offset, _sceneWidth + 0.5, thickness, { isStatic: true }));
+        World.addBody(_world, Bodies.rectangle(_sceneWidth * 0.5, _sceneHeight + offset, _sceneWidth + 0.5, thickness, { isStatic: true }));
+        World.addBody(_world, Bodies.rectangle(_sceneWidth + offset, _sceneHeight * 0.5, thickness, _sceneHeight + 0.5, { isStatic: true }));
+        World.addBody(_world, Bodies.rectangle(-offset, _sceneHeight * 0.5, thickness, _sceneHeight + 0.5, { isStatic: true }));
+        
+        // var ground = Bodies.rectangle(0, 0, 200, 100, { isStatic: true });
+        // World.addBody(_world, ground);
+
     };
 
 })();
