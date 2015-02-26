@@ -84,6 +84,8 @@ function update() {
 	}
 	skydiscRotation += skydiscAcceleration;
 	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
+	skydisc.style.transform ="-webkit-rotate("+skydiscRotation+"deg)";
+	skydisc.style.transform ="-moz-rotate("+skydiscRotation+"deg)";
 
 	console.log(skydiscRotation + " " + skydiscAcceleration);
 }
