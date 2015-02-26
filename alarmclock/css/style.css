@@ -9,7 +9,13 @@
 	width: 200%;
 	margin-top: -25%;
 	margin-left: -50%;
-	margin-right: -50%;
+	/*margin-right: -50%;*/
+	overflow: hidden;
+}
+
+#skydisc:after {
+	width: 100%;
+}
 
 #bird {
 	visibility: hidden;
