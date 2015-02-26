@@ -97,7 +97,7 @@ function update() {
 	// console.log("updating");
 	if ((skydiscAcceleration > 0 && skydiscAcceleration < 0.05) || (skydiscAcceleration < 0 && skydiscAcceleration > -0.05)) {
 		skydiscAcceleration = 0;
-		console.log("mwa");
+		console.log("end rotation");
 	} else {
 		skydiscAcceleration *= skydiscFriction;
 	}
@@ -106,7 +106,13 @@ function update() {
 	skydisc.style.transform ="-webkit-rotate("+skydiscRotation+"deg)";
 	skydisc.style.transform ="-moz-rotate("+skydiscRotation+"deg)";
 
-	console.log(skydiscRotation + " " + skydiscAcceleration);
+	if (skydiscRotation >= 360) {
+		skydiscRotation -= 360;
+	} else if (skydiscRotation < 0) {
+		skydiscRotation += 360;
+	}
+
+	// console.log(skydiscRotation + " " + skydiscAcceleration);
 }
 
  function rotateSkydisc() {
