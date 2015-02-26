@@ -6,7 +6,16 @@
 }
 
 #skydisc {
-	width: 100px;
-	height: 100px;
+	height: 100%;
+	width: 100%;
 	background-color: black;
 }
+
+
+/*@media (orientation: landscape) {
+	#skydisc {
+		height: 100%;*/
+		/*width: auto;*/
+		/*background-color: black;
+	}
+}*/
