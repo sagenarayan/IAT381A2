@@ -69,11 +69,11 @@ sd.on("panleft", function(ev) {
 	if (skydiscRotation < 10) {
 		$('#bird').removeClass("hatch");
 		console.log("gone");
-
-	if (skydiscRotation < (-10)) {
-		$('#tree').addClass("hatch");
-
 	}
+	// if (skydiscRotation < (-10)) {
+	// 	$('#tree').addClass("hatch");
+
+	// }
 
 
 });
