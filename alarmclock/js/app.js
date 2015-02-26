@@ -31,6 +31,8 @@
 // });
 
 window.onload = init;
+
+window.setInterval(update, 1000/60);
  
 function init() {
   disableDraggingFor(document.getElementById("skydisc"));
@@ -49,30 +51,46 @@ function disableDraggingFor(element) {
 
 
 var skydiscRotation = 0;
+var skydiscAcceleration = 0;
+var skydiscFriction = 0.95;
 var skydisc = document.getElementById("skydisc");
 var sd = new Hammer(skydisc);
 
 sd.on("panleft", function(ev) {
-	skydiscRotation--;
-	console.log(skydiscRotation);
-	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
+	skydiscAcceleration--;
+	rotateSkydisc();
 
 	if (skydiscRotation < (-10)) {
 		$('#tree').addClass("hatch");
-		console.log("test");
 	}
 });
 
 sd.on("panright", function(ev) {
-	skydiscRotation++;
-	console.log(skydiscRotation);
-	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
+	skydiscAcceleration++;
+	rotateSkydisc();
 
 	if (skydiscRotation > 10) {
 		$('#bird').addClass("hatch");
-		console.log("test");
 	}
 });
+
+function update() {
+	// console.log("updating");
+	if ((skydiscAcceleration > 0 && skydiscAcceleration < 0.05) || (skydiscAcceleration < 0 && skydiscAcceleration > -0.05)) {
+		skydiscAcceleration = 0;
+		console.log("mwa");
+	} else {
+		skydiscAcceleration *= skydiscFriction;
+	}
+	skydiscRotation += skydiscAcceleration;
+	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
+
+	console.log(skydiscRotation + " " + skydiscAcceleration);
+}
+
+ function rotateSkydisc() {
+// 	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
+ }
 // END SKYDISC/////////////////////////////////
 
 
