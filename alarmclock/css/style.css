@@ -6,16 +6,23 @@
 }
 
 #skydisc {
-	height: 100%;
-	width: 100%;
 	background-color: black;
 }
+
+#skydisc {
+	width: 200%;
+	margin-left: -50%;
+	margin-right: -50%;
 
 
 /*@media (orientation: landscape) {
 	#skydisc {
-		height: 100%;*/
-		/*width: auto;*/
-		/*background-color: black;
+		height: 100%;
+	}s
+}
+
+@media (orientation: portrait) {
+	#skydisc {
+		width: 100%;
 	}
 }*/

@@ -12,17 +12,41 @@
 // END SAMPLE CODE//////////////////////////////
 
 //SKYDISC///////////////////////////////////////
-var skydiscWidth = $('#skydisc').width();
-var skydiscHeight = $('#skydisc').height();
-if (skydiscWidth > skydiscHeight) {
-	$('#skydisc').css({
-	    'height': skydiscWidth + 'px'
-	});
-} else {
-	$('#skydisc').css({
-	    'width': skydiscHeight + 'px'
-	});
+// $(window).resize(function () {
+// 	var skydiscWidth = $('#skydisc').width();
+// 	var skydiscHeight = $('#skydisc').height();
+// 	if (skydiscWidth > skydiscHeight) {
+// 		$('#skydisc').css({
+// 			// "width": window.innerWidth
+// 		    'height': skydiscWidth + 'px'
+		    
+// 		});
+// 	} else {
+// 		$('#skydisc').css({
+// 			// "height": window.innerHeight
+// 		    'width': skydiscHeight + 'px'
+
+// 		});
+// 	}
+// });
+
+window.onload = init;
+ 
+function init() {
+  disableDraggingFor(document.getElementById("skydisc"));
+  // disableDraggingFor(document.getElementById("element name"));
 }
+ 
+function disableDraggingFor(element) {
+  // this works for FireFox and WebKit in future according to http://help.dottoro.com/lhqsqbtn.php
+  element.draggable = false;
+  // this works for older web layout engines
+  element.onmousedown = function(event) {
+    event.preventDefault();
+    return false;
+  };
+}
+
 
 var skydiscRotation = 0;
 var skydisc = document.getElementById("skydisc");
