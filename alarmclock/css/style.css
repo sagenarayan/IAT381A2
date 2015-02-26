@@ -6,9 +6,10 @@
 }
 
 #skydisc {
-	height: 100%;
-	width: 100%;
-	background-color: black;
+	width: 200%;
+	margin-top: -25%;
+	margin-left: -50%;
+	margin-right: -50%;
 }
 
 #bird {
@@ -16,7 +17,6 @@
 	position: fixed;
 	top: 1em;
 }
-
 
 #tree {
 	visibility: hidden;
@@ -29,8 +29,12 @@
 
 /*@media (orientation: landscape) {
 	#skydisc {
-		height: 100%;*/
-		/*width: auto;*/
-		/*background-color: black;
+		height: 100%;
+	}s
+}
+
+@media (orientation: portrait) {
+	#skydisc {
+		width: 100%;
 	}
 }*/
