@@ -11,6 +11,19 @@
 	background-color: black;
 }
 
+#bird {
+	visibility: hidden;
+	position: fixed;
+	top: 1em;
+}
+
+
+#tree {
+	visibility: hidden;
+	position: fixed;
+	top: 1em;
+	right: 10em;
+}
 
 /*@media (orientation: landscape) {
 	#skydisc {
