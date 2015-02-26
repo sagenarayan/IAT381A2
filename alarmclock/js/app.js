@@ -1,3 +1,4 @@
+// SAMPLE CODE
 var myElement = document.getElementById('myElement');
 
 // create a simple instance
@@ -8,3 +9,21 @@ var mc = new Hammer(myElement);
 mc.on("panleft panright tap press", function(ev) {
     myElement.textContent = ev.type +" gesture detected.";
 });
+// END SAMPLE CODE
+
+//SKYDISC
+var skydiscRotation = 0;
+var skydisc = document.getElementById("skydisc");
+var sd = new Hammer(skydisc);
+
+sd.on("panleft", function(ev) {
+	skydiscRotation--;
+	console.log(skydiscRotation);
+	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
+});
+
+sd.on("panright", function(ev) {
+	skydiscRotation++;
+	console.log(skydiscRotation);
+	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
+})
