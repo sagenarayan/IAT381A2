@@ -60,9 +60,22 @@ sd.on("panleft", function(ev) {
 	skydiscAcceleration--;
 	rotateSkydisc();
 
+
+	// if (skydiscRotation < (-10)) {
+	// 	$('#tree').addClass("hatch");
+	// 	console.log("test");
+	// }
+
+	if (skydiscRotation < 10) {
+		$('#bird').removeClass("hatch");
+		console.log("gone");
+
 	if (skydiscRotation < (-10)) {
 		$('#tree').addClass("hatch");
+
 	}
+
+
 });
 
 sd.on("panright", function(ev) {
@@ -72,6 +85,12 @@ sd.on("panright", function(ev) {
 	if (skydiscRotation > 10) {
 		$('#bird').addClass("hatch");
 	}
+
+		if (skydiscRotation < 10) {
+		$('#bird').removeClass("hatch");
+		console.log("gone");
+	}
+
 });
 
 function update() {
