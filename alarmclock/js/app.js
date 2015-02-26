@@ -56,11 +56,23 @@ sd.on("panleft", function(ev) {
 	skydiscRotation--;
 	console.log(skydiscRotation);
 	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
+
+	if (skydiscRotation < (-10)) {
+		$('#tree').addClass("hatch");
+		console.log("test");
+	}
 });
 
 sd.on("panright", function(ev) {
 	skydiscRotation++;
 	console.log(skydiscRotation);
 	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
+
+	if (skydiscRotation > 10) {
+		$('#bird').addClass("hatch");
+		console.log("test");
+	}
 });
 // END SKYDISC/////////////////////////////////
+
+
