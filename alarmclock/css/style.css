@@ -5,16 +5,21 @@
   font: 30px/300px Helvetica, Arial, sans-serif;
 }
 
+#skydisc-hammer-pad {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	/*background-color: black;*/
+	z-index: 1;
+}
+
 #skydisc {
+	position: fixed;
 	width: 200%;
 	margin-top: -25%;
 	margin-left: -50%;
-	/*margin-right: -50%;*/
+	margin-right: -50%;
 	overflow: hidden;
-}
-
-#skydisc:after {
-	width: 100%;
 }
 
 #bird {

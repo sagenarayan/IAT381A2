@@ -32,11 +32,10 @@
 
 window.onload = init;
 
-window.setInterval(update, 1000/60);
+window.setInterval(update, 1000/30);
  
 function init() {
-  disableDraggingFor(document.getElementById("skydisc"));
-  // disableDraggingFor(document.getElementById("element name"));
+  disableDraggingFor(document.getElementById("skydisc-hammer-pad"));
 }
  
 function disableDraggingFor(element) {
@@ -54,7 +53,8 @@ var skydiscRotation = 0;
 var skydiscAcceleration = 0;
 var skydiscFriction = 0.95;
 var skydisc = document.getElementById("skydisc");
-var sd = new Hammer(skydisc);
+var skydiscHammerPad = document.getElementById("skydisc-hammer-pad");
+var sd = new Hammer(skydiscHammerPad);
 
 sd.on("panleft", function(ev) {
 	skydiscAcceleration--;
@@ -69,6 +69,7 @@ sd.on("panleft", function(ev) {
 	if (skydiscRotation < 10) {
 		$('#bird').removeClass("hatch");
 		console.log("gone");
+	}
 
 	if (skydiscRotation < (-10)) {
 		$('#tree').addClass("hatch");
