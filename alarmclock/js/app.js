@@ -70,20 +70,24 @@ sd.on("panleft", function(ev) {
 	rotateSkydisc();
 
 
-	// if (skydiscRotation < (-10)) {
-	// 	$('#tree').addClass("hatch");
-	// 	console.log("test");
-	// }
+	if (skydiscRotation < (0)) {
+		$('#tree').addClass("hatch");
+		console.log("test");
+	}
 
 	if (skydiscRotation < 10) {
 		$('#bird').removeClass("hatch");
 		console.log("gone");
+<<<<<<< HEAD
+=======
 	}
 
 	if (skydiscRotation < (-10)) {
 		$('#tree').addClass("hatch");
 
+>>>>>>> fab7c91e35c88eb8345e32de35f933b99e671d3d
 	}
+
 
 
 });
