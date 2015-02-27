@@ -61,19 +61,16 @@ sd.on("panleft", function(ev) {
 	rotateSkydisc();
 
 
-	// if (skydiscRotation < (-10)) {
-	// 	$('#tree').addClass("hatch");
-	// 	console.log("test");
-	// }
+	if (skydiscRotation < (0)) {
+		$('#tree').addClass("hatch");
+		console.log("test");
+	}
 
 	if (skydiscRotation < 10) {
 		$('#bird').removeClass("hatch");
 		console.log("gone");
 	}
-	// if (skydiscRotation < (-10)) {
-	// 	$('#tree').addClass("hatch");
 
-	// }
 
 
 });
