@@ -126,8 +126,33 @@ function update() {
 		skydiscAcceleration = 10;
 	}
 
+	//Change Scenery
 	var sceneryIndex = Math.floor(skydiscRotation/18);
 	$("#scenery").attr("src", sceneryArray[sceneryIndex]);
+
+
+	
+	//Move Sun
+	var sunHeightPercentage = ((-15)*Math.sin((skydiscRotation/90) -0.5)) + 10;
+	 $('#sun').css({ 
+	 	'margin-left': (skydiscRotation - 100)/2 + "%",
+	 	'margin-top': sunHeightPercentage + "%"
+	 });
+	 
+
+	 //Move Moon
+	 var tempSDRot = skydiscRotation + 180;
+	 if (tempSDRot >= 360) {
+	 	tempSDRot -= 360;
+	 }
+	 var moonHeightPercentage = ((-15)*Math.sin((tempSDRot/90) -0.5)) + 15;
+	 
+	 $('#moon').css({ 
+	 	'margin-left': (tempSDRot - 100)/2 + "%",
+	 	'margin-top': moonHeightPercentage + "%"
+	 });
+	 console.log((tempSDRot - 100)/2);
+
 // 	$("#clone_el").css("z-index",2);
 // ele = $("#clone_el").clone().css({position:"relative","top":"-"+$("#clone_el").eq(0).height()+"px","z-index":"1"}).attr("src","/path/to/new/src");
 // $("#clone_el").after(ele).fadeOut();
