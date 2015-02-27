@@ -78,18 +78,7 @@ sd.on("panleft", function(ev) {
 	if (skydiscRotation < 10) {
 		$('#bird').removeClass("hatch");
 		console.log("gone");
-<<<<<<< HEAD
-=======
 	}
-
-	if (skydiscRotation < (-10)) {
-		$('#tree').addClass("hatch");
-
->>>>>>> fab7c91e35c88eb8345e32de35f933b99e671d3d
-	}
-
-
-
 });
 
 sd.on("panright", function(ev) {
@@ -104,7 +93,6 @@ sd.on("panright", function(ev) {
 		$('#bird').removeClass("hatch");
 		console.log("gone");
 	}
-
 });
 
 function update() {
@@ -145,17 +133,17 @@ function update() {
 	 
 
 	 //Move Moon
-	 var tempSDRot = skydiscRotation + 180;
-	 if (tempSDRot >= 360) {
-	 	tempSDRot -= 360;
+	 var skydiscRotationShifted = skydiscRotation + 180;
+	 if (skydiscRotationShifted >= 360) {
+	 	skydiscRotationShifted -= 360;
 	 }
-	 var moonHeightPercentage = ((-15)*Math.sin((tempSDRot/90) -0.5)) + 15;
+	 var moonHeightPercentage = ((-15)*Math.sin((skydiscRotationShifted/90) -0.5)) + 15;
 	 
 	 $('#moon').css({ 
-	 	'margin-left': (tempSDRot - 100)/2 + "%",
+	 	'margin-left': (skydiscRotationShifted - 100)/2 + "%",
 	 	'margin-top': moonHeightPercentage + "%"
 	 });
-	 console.log((tempSDRot - 100)/2);
+	 // console.log((skydiscRotationShifted - 100)/2);
 
 // 	$("#clone_el").css("z-index",2);
 // ele = $("#clone_el").clone().css({position:"relative","top":"-"+$("#clone_el").eq(0).height()+"px","z-index":"1"}).attr("src","/path/to/new/src");
