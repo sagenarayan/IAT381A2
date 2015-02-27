@@ -11,6 +11,14 @@
 // });
 // END SAMPLE CODE//////////////////////////////
 
+//SCENERY///////////////////////////////////////
+var sceneryArray = new Array();
+for (var i = 0; i < 20; i++) {
+	sceneryArray[i] = "img/scenery/scenery-" + i + ".png";
+}
+//END SCENERY///////////////////////////////////
+
+
 //SKYDISC///////////////////////////////////////
 // $(window).resize(function () {
 // 	var skydiscWidth = $('#skydisc').width();
@@ -32,11 +40,10 @@
 
 window.onload = init;
 
-window.setInterval(update, 1000/60);
+window.setInterval(update, 1000/30);
  
 function init() {
-  disableDraggingFor(document.getElementById("skydisc"));
-  // disableDraggingFor(document.getElementById("element name"));
+  disableDraggingFor(document.getElementById("skydisc-hammer-pad"));
 }
  
 function disableDraggingFor(element) {
@@ -52,12 +59,14 @@ function disableDraggingFor(element) {
 
 var skydiscRotation = 0;
 var skydiscAcceleration = 0;
-var skydiscFriction = 0.95;
+var skydiscFriction = 0.92;
+var skydiscAccelerationRate = 0.2;
 var skydisc = document.getElementById("skydisc");
-var sd = new Hammer(skydisc);
+var skydiscHammerPad = document.getElementById("skydisc-hammer-pad");
+var sd = new Hammer(skydiscHammerPad);
 
 sd.on("panleft", function(ev) {
-	skydiscAcceleration--;
+	skydiscAcceleration -= skydiscAccelerationRate;
 	rotateSkydisc();
 
 
@@ -69,6 +78,14 @@ sd.on("panleft", function(ev) {
 	if (skydiscRotation < 10) {
 		$('#bird').removeClass("hatch");
 		console.log("gone");
+<<<<<<< HEAD
+=======
+	}
+
+	if (skydiscRotation < (-10)) {
+		$('#tree').addClass("hatch");
+
+>>>>>>> fab7c91e35c88eb8345e32de35f933b99e671d3d
 	}
 
 
@@ -76,7 +93,7 @@ sd.on("panleft", function(ev) {
 });
 
 sd.on("panright", function(ev) {
-	skydiscAcceleration++;
+	skydiscAcceleration += skydiscAccelerationRate;
 	rotateSkydisc();
 
 	if (skydiscRotation > 10) {
@@ -108,6 +125,16 @@ function update() {
 	} else if (skydiscRotation < 0) {
 		skydiscRotation += 360;
 	}
+
+	if (skydiscAcceleration > 10) {
+		skydiscAcceleration = 10;
+	}
+
+	var sceneryIndex = Math.floor(skydiscRotation/18);
+	$("#scenery").attr("src", sceneryArray[sceneryIndex]);
+// 	$("#clone_el").css("z-index",2);
+// ele = $("#clone_el").clone().css({position:"relative","top":"-"+$("#clone_el").eq(0).height()+"px","z-index":"1"}).attr("src","/path/to/new/src");
+// $("#clone_el").after(ele).fadeOut();
 
 	// console.log(skydiscRotation + " " + skydiscAcceleration);
 }

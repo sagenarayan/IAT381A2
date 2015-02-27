@@ -5,16 +5,30 @@
   font: 30px/300px Helvetica, Arial, sans-serif;
 }
 
+#skydisc-hammer-pad {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	/*background-color: black;*/
+	z-index: 1;
+}
+
 #skydisc {
+	position: fixed;
 	width: 200%;
 	margin-top: -25%;
 	margin-left: -50%;
-	/*margin-right: -50%;*/
+	margin-right: -50%;
 	overflow: hidden;
+	/*z-index: 0;*/
+	/*visibility: hidden;*/
 }
 
-#skydisc:after {
+#scenery {
 	width: 100%;
+    height: auto;
+    /*position: fixed;*/
+    /*z-index: 0;*/
 }
 
 #bird {
@@ -30,16 +44,34 @@
 /*	right: 10em;*/
 }
 
+.scene-object {
+	position: fixed;
+	margin: 0;
+	padding: 0;
+}
 
+html {
+	margin: 0;
+}
 
-/*@media (orientation: landscape) {
-	#skydisc {
-		height: 100%;
-	}s
+body {
+	margin: 0;
+}
+
+@media (orientation: landscape) {
+	#scenery {
+		width: 100%;
+	    height: auto;
+	    /*/*position: fixed;*/
+	    /*z-index: 0;*/*/
+	}
 }
 
 @media (orientation: portrait) {
-	#skydisc {
-		width: 100%;
+	#scenery {
+		height: 100%;
+		width: auto;
+		margin-left: -25%
+
 	}
-}*/
+}
