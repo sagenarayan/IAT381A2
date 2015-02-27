@@ -20,6 +20,15 @@
 	margin-left: -50%;
 	margin-right: -50%;
 	overflow: hidden;
+	/*z-index: 0;*/
+	/*visibility: hidden;*/
+}
+
+#scenery {
+	width: 100%;
+    height: auto;
+    /*position: fixed;*/
+    /*z-index: 0;*/
 }
 
 #bird {
@@ -35,16 +44,34 @@
 	right: 10em;
 }
 
+.scene-object {
+	position: fixed;
+	margin: 0;
+	padding: 0;
+}
 
+html {
+	margin: 0;
+}
 
-/*@media (orientation: landscape) {
-	#skydisc {
-		height: 100%;
-	}s
+body {
+	margin: 0;
+}
+
+@media (orientation: landscape) {
+	#scenery {
+		width: 100%;
+	    height: auto;
+	    /*/*position: fixed;*/
+	    /*z-index: 0;*/*/
+	}
 }
 
 @media (orientation: portrait) {
-	#skydisc {
-		width: 100%;
+	#scenery {
+		height: 100%;
+		width: auto;
+		margin-left: -25%
+
 	}
-}*/
+}
