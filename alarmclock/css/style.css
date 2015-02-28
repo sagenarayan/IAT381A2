@@ -1,8 +1,15 @@
-#myElement {
-  background: silver;
-  height: 300px;
-  text-align: center;
-  font: 30px/300px Helvetica, Arial, sans-serif;
+#setAlarm {
+	visibility: hidden;
+	/*opacity: 0;*/
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+#alarmList {
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 #skydisc-hammer-pad {
@@ -31,6 +38,30 @@
     z-index: 10;
 }
 
+#stars {
+	width: 150%;
+}
+
+#sun {
+	width: 30%;
+	height: auto;
+}
+
+#moon {
+	width: 20%;
+	height: auto;
+}
+
+#owl {
+	margin-left: 9%;
+	margin-top: 20%;
+	z-index: 11;
+	width: 5%;
+	height: auto;
+	opacity: 0.7;
+}
+
+/*
 #bird {
 	visibility: hidden;
 	position: fixed;
@@ -41,13 +72,79 @@
 	visibility: hidden;
 	position: fixed;
 	top: 1em;
-/*	right: 10em;*/
+	right: 10em;
+}
+*/
+
+#alarm1 {
+    background-position: left top;
+}
+
+#alarm2 {
+    background-position: center top;
+}
+
+#alarm3 {
+    background-position: right top;
+}
+
+.box {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    flex-wrap: wrap;
+	/*background-color: red;*/
+
 }
 
 .scene-object {
 	position: fixed;
 	margin: 0;
 	padding: 0;
+}
+
+.alarmSkydisc {
+	flex-grow: 1;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+#skydiscA1 {
+	position: absolute;
+	width: 600%;
+	margin-top: -75%;
+	margin-left: -150%;
+	margin-right: -350%;
+	z-index: -1;
+}
+
+#skydiscA2 {
+	position: absolute;
+	width: 600%;
+	margin-top: -75%;
+	margin-left: -250%;
+	margin-right: -250%;
+	z-index: -1;
+}
+
+#skydiscA3 {
+	position: absolute;
+	width: 600%;
+	margin-top: -75%;
+	margin-left: -350%;
+	margin-right: -150%;
+	z-index: -1;
+}
+
+.alarmItem {
+	height: 100%;
+	flex-grow: 1;
+
+	background-image: url("../img/scenery.png");
+	background-size: 300% auto;
+	background-repeat: no-repeat;
+	z-index: 10;
 }
 
 html {

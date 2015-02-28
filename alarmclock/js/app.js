@@ -11,6 +11,34 @@
 // });
 // END SAMPLE CODE//////////////////////////////
 
+var supportsOrientationChange = "onorientationchange" in window,
+    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+
+window.addEventListener(orientationEvent, function() {
+	window.scrollTo(0, 1);
+}, false);
+
+
+//ALARM SCREEN//////////////////////////////////
+var skydiscA1Rotation = 0;//Math.random()*360;
+var skydiscA2Rotation = Math.random()*360;
+var skydiscA3Rotation = Math.random()*360;
+
+$("#alarm1").click(function() {
+	// $('#alarmList').addClass("animate fadeOut");
+	$('#setAlarm').addClass("animate fadeIn");
+	$('#setAlarm').css({ 
+	 	// 'opacity': "1",
+	 	'visibility': "visible"
+	 });
+	// $('#alarmList').css({ 
+	//  	// 'opacity': "0",
+	//  	'visibility': "hidden"
+	//  });
+	console.log("fadeout");
+});
+////////////////////////////////////////////////
+
 //SCENERY///////////////////////////////////////
 var sceneryArray = new Array();
 for (var i = 0; i < 20; i++) {
@@ -68,31 +96,11 @@ var sd = new Hammer(skydiscHammerPad);
 sd.on("panleft", function(ev) {
 	skydiscAcceleration -= skydiscAccelerationRate;
 	rotateSkydisc();
-
-
-	if (skydiscRotation < (0)) {
-		$('#tree').addClass("hatch");
-		console.log("test");
-	}
-
-	if (skydiscRotation < 10) {
-		$('#bird').removeClass("hatch");
-		console.log("gone");
-	}
 });
 
 sd.on("panright", function(ev) {
 	skydiscAcceleration += skydiscAccelerationRate;
 	rotateSkydisc();
-
-	if (skydiscRotation > 10) {
-		$('#bird').addClass("hatch");
-	}
-
-		if (skydiscRotation < 10) {
-		$('#bird').removeClass("hatch");
-		console.log("gone");
-	}
 });
 
 function update() {
@@ -103,6 +111,7 @@ function update() {
 	} else {
 		skydiscAcceleration *= skydiscFriction;
 	}
+
 	skydiscRotation += skydiscAcceleration;
 	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
 	skydisc.style.transform ="-webkit-rotate("+skydiscRotation+"deg)";
@@ -118,11 +127,22 @@ function update() {
 		skydiscAcceleration = 10;
 	}
 
+	var skydiscRotationShifted = skydiscRotation + 180;
+	if (skydiscRotationShifted >= 360) {
+	 	skydiscRotationShifted -= 360;
+	}
+
 	//Change Scenery
 	var sceneryIndex = Math.floor(skydiscRotation/18);
 	$("#scenery").attr("src", sceneryArray[sceneryIndex]);
 
-
+	//Stars
+	var starHeightPercentage = ((-5)*Math.sin((skydiscRotationShifted/180) - 0.5));
+	$('#stars').css({ 
+		'opacity': (Math.abs(skydiscRotation - 180)-90)/90,
+		'margin-left': (skydiscRotationShifted)/16 - 25 + "%",
+		'margin-top': starHeightPercentage + "%"
+	});
 	
 	//Move Sun
 	var sunHeightPercentage = ((-15)*Math.sin((skydiscRotation/90) -0.5)) + 10;
@@ -133,16 +153,21 @@ function update() {
 	 
 
 	 //Move Moon
-	 var skydiscRotationShifted = skydiscRotation + 180;
-	 if (skydiscRotationShifted >= 360) {
-	 	skydiscRotationShifted -= 360;
-	 }
 	 var moonHeightPercentage = ((-15)*Math.sin((skydiscRotationShifted/90) -0.5)) + 15;
-	 
 	 $('#moon').css({ 
 	 	'margin-left': (skydiscRotationShifted - 100)/2 + "%",
 	 	'margin-top': moonHeightPercentage + "%"
 	 });
+
+	//Owl
+	if (skydiscRotation > 315 || skydiscRotation < 45) {
+		$('#owl').addClass("hatch");
+		$('#owl').removeClass("fadeOut");
+	} else {
+		$('#owl').removeClass("hatch");
+		$('#owl').addClass("fadeOut");
+	}
+
 	 // console.log((skydiscRotationShifted - 100)/2);
 
 // 	$("#clone_el").css("z-index",2);
@@ -150,6 +175,43 @@ function update() {
 // $("#clone_el").after(ele).fadeOut();
 
 	// console.log(skydiscRotation + " " + skydiscAcceleration);
+}
+
+updateAlarmScreen();
+
+function updateAlarmScreen() {
+	var skydisc1 = document.getElementById("skydiscA1");
+	skydisc1.style.transform ="rotate("+skydiscA1Rotation+"deg)";
+	skydisc1.style.transform ="-webkit-rotate("+skydiscA1Rotation+"deg)";
+	skydisc1.style.transform ="-moz-rotate("+skydiscA1Rotation+"deg)";
+
+	var sceneryIndex = Math.floor(skydiscA1Rotation/18);
+	$("#alarm1").attr("background", "url(" + sceneryArray[sceneryIndex] + ")");
+	$('#alarm1').css({ 
+	 	'background-image': "url(" + sceneryArray[sceneryIndex] + ")"
+	 });
+
+	var skydisc2 = document.getElementById("skydiscA2");
+	skydisc2.style.transform ="rotate("+skydiscA2Rotation+"deg)";
+	skydisc2.style.transform ="-webkit-rotate("+skydiscA2Rotation+"deg)";
+	skydisc2.style.transform ="-moz-rotate("+skydiscA2Rotation+"deg)";
+
+	var sceneryIndex = Math.floor(skydiscA2Rotation/18);
+	$("#alarm2").attr("background", "url(" + sceneryArray[sceneryIndex] + ")");
+	$('#alarm2').css({ 
+	 	'background-image': "url(" + sceneryArray[sceneryIndex] + ")"
+	 });
+
+	var skydisc3 = document.getElementById("skydiscA3");
+	skydisc3.style.transform ="rotate("+skydiscA3Rotation+"deg)";
+	skydisc3.style.transform ="-webkit-rotate("+skydiscA3Rotation+"deg)";
+	skydisc3.style.transform ="-moz-rotate("+skydiscA3Rotation+"deg)";
+
+	var sceneryIndex = Math.floor(skydiscA3Rotation/18);
+	$("#alarm3").attr("background", "url(" + sceneryArray[sceneryIndex] + ")");
+	$('#alarm3').css({ 
+	 	'background-image': "url(" + sceneryArray[sceneryIndex] + ")"
+	 });
 }
 
  function rotateSkydisc() {
