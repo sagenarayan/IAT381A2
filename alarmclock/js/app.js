@@ -11,31 +11,49 @@
 // });
 // END SAMPLE CODE//////////////////////////////
 
-var supportsOrientationChange = "onorientationchange" in window,
-    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
 
-window.addEventListener(orientationEvent, function() {
-	window.scrollTo(0, 1);
-}, false);
+$(document).ready(function() {
+	// setTimeout(function(){
+	// $('body').addClass('visible');
+	console.log("ready");
+	// }, 3000);
+});
+
+// var supportsOrientationChange = "onorientationchange" in window,
+//     orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+
+// window.addEventListener(orientationEvent, function() {
+// 	window.scrollTo(0, 1);
+// }, false);
 
 
 //ALARM SCREEN//////////////////////////////////
-var skydiscA1Rotation = 0;//Math.random()*360;
+var skydiscA1Rotation = Math.random()*360;
 var skydiscA2Rotation = Math.random()*360;
 var skydiscA3Rotation = Math.random()*360;
 
 $("#alarm1").click(function() {
-	// $('#alarmList').addClass("animate fadeOut");
+	skydiscRotation = skydiscA1Rotation;
 	$('#setAlarm').addClass("animate fadeIn");
 	$('#setAlarm').css({ 
-	 	// 'opacity': "1",
 	 	'visibility': "visible"
-	 });
-	// $('#alarmList').css({ 
-	//  	// 'opacity': "0",
-	//  	'visibility': "hidden"
-	//  });
-	console.log("fadeout");
+	});
+});
+
+$("#alarm2").click(function() {
+	skydiscRotation = skydiscA2Rotation;
+	$('#setAlarm').addClass("animate fadeIn");
+	$('#setAlarm').css({ 
+	 	'visibility': "visible"
+	});
+});
+
+$("#alarm3").click(function() {
+	skydiscRotation = skydiscA3Rotation;
+	$('#setAlarm').addClass("animate fadeIn");
+	$('#setAlarm').css({ 
+	 	'visibility': "visible"
+	});
 });
 ////////////////////////////////////////////////
 
@@ -140,24 +158,26 @@ function update() {
 	var starHeightPercentage = ((-5)*Math.sin((skydiscRotationShifted/180) - 0.5));
 	$('#stars').css({ 
 		'opacity': (Math.abs(skydiscRotation - 180)-90)/90,
-		'margin-left': (skydiscRotationShifted)/16 - 25 + "%",
-		'margin-top': starHeightPercentage + "%"
+		'margin-left': skydiscRotationShifted - ($(window).width()/4),	//(skydiscRotationShifted)/($(window).width()/22) - 25 + "%",
+		'margin-top': -skydiscRotationShifted/2 //+ ($(window).width()/16)
 	});
 	
 	//Move Sun
 	var sunHeightPercentage = ((-15)*Math.sin((skydiscRotation/90) -0.5)) + 10;
 	 $('#sun').css({ 
-	 	'margin-left': (skydiscRotation - 100)/2 + "%",
-	 	'margin-top': sunHeightPercentage + "%"
+	 	'margin-left': ((skydiscRotation - 120)/2)/100 * $(window).width() + $(window).width()/20,// + "%",
+	 	'margin-top': sunHeightPercentage * ($(window).width() * 0.01)
 	 });
 	 
 
 	 //Move Moon
 	 var moonHeightPercentage = ((-15)*Math.sin((skydiscRotationShifted/90) -0.5)) + 15;
 	 $('#moon').css({ 
-	 	'margin-left': (skydiscRotationShifted - 100)/2 + "%",
-	 	'margin-top': moonHeightPercentage + "%"
+	 	'margin-left': ((skydiscRotationShifted - 120)/2)/100 * $(window).width() + $(window).width()/20,
+	 	'margin-top': moonHeightPercentage * ($(window).width() * 0.01)
 	 });
+
+	 console.log(moonHeightPercentage);
 
 	//Owl
 	if (skydiscRotation > 315 || skydiscRotation < 45) {
@@ -180,6 +200,11 @@ function update() {
 updateAlarmScreen();
 
 function updateAlarmScreen() {
+	var skydiscA1RotationShifted = skydiscA1Rotation + 180;
+	if (skydiscA1RotationShifted >= 360) {
+	 	skydiscA1RotationShifted -= 360;
+	}
+
 	var skydisc1 = document.getElementById("skydiscA1");
 	skydisc1.style.transform ="rotate("+skydiscA1Rotation+"deg)";
 	skydisc1.style.transform ="-webkit-rotate("+skydiscA1Rotation+"deg)";
@@ -190,6 +215,33 @@ function updateAlarmScreen() {
 	$('#alarm1').css({ 
 	 	'background-image': "url(" + sceneryArray[sceneryIndex] + ")"
 	 });
+
+	var starHeightPercentage = ((-5)*Math.sin(((skydiscA1RotationShifted)/180) - 0.5));
+	$('#starsA1').css({ 
+		'opacity': (Math.abs(skydiscA1Rotation - 180)-90)/90,
+		'margin-left': (skydiscA1RotationShifted) - ($(window).width()/4),// - ($(window).width()/3),
+		'margin-top': (-skydiscA1RotationShifted / 2) //+ ($(window).width()/16)
+	});
+
+	var sunHeightA1Percentage = ((-15)*Math.sin((skydiscA1Rotation/90) -0.5)) + 10;
+	 $('#sunA1').css({ 
+	 	'margin-left': ((skydiscA1Rotation - 120)/2)/100 * $(window).width() + $(window).width()/20,// + "%",
+	 	'margin-top': sunHeightA1Percentage * ($(window).width() * 0.01)
+	 });
+
+	var moonHeightPercentage = ((-15)*Math.sin((skydiscA1RotationShifted/90) -0.5)) + 15;
+	$('#moonA1').css({ 
+		'margin-left': ((skydiscA1RotationShifted - 120)/2)/100 * $(window).width() + $(window).width()/20,
+		'margin-top': moonHeightPercentage * ($(window).width() * 0.01)
+	});
+
+	console.log($(window).width()/3);
+
+
+	var skydiscA2RotationShifted = skydiscA2Rotation + 180;
+	if (skydiscA2RotationShifted >= 360) {
+	 	skydiscA2RotationShifted -= 360;
+	}
 
 	var skydisc2 = document.getElementById("skydiscA2");
 	skydisc2.style.transform ="rotate("+skydiscA2Rotation+"deg)";
@@ -202,6 +254,31 @@ function updateAlarmScreen() {
 	 	'background-image': "url(" + sceneryArray[sceneryIndex] + ")"
 	 });
 
+	var starHeightPercentage = ((-5)*Math.sin(((skydiscA2RotationShifted)/180) - 0.5));
+	$('#starsA2').css({ 
+		'opacity': (Math.abs(skydiscA2Rotation - 180)-90)/90,
+		'margin-left': (skydiscA2RotationShifted) - ($(window).width()/4) -  ($(window).width()/3),// - ($(window).width()/3),
+		'margin-top': (-skydiscA2RotationShifted / 2) //+ ($(window).width()/16)
+	});
+
+	var sunHeightA2Percentage = ((-15)*Math.sin((skydiscA2Rotation/90) -0.5)) + 10;
+	 $('#sunA2').css({ 
+	 	'margin-left': ((skydiscA2Rotation - 120)/2)/100 * $(window).width() + $(window).width()/20 - $(window).width()/3,// + "%",
+	 	'margin-top': sunHeightA2Percentage * ($(window).width() * 0.01)
+	 });
+
+	var moonHeightPercentage = ((-15)*Math.sin((skydiscA2RotationShifted/90) -0.5)) + 15;
+	$('#moonA2').css({ 
+		'margin-left': ((skydiscA2RotationShifted - 120)/2)/100 * $(window).width() + $(window).width()/20 - $(window).width()/3,
+		'margin-top': moonHeightPercentage * ($(window).width() * 0.01)
+	});
+
+
+	var skydiscA3RotationShifted = skydiscA3Rotation + 180;
+	if (skydiscA3RotationShifted >= 360) {
+	 	skydiscA3RotationShifted -= 360;
+	}
+
 	var skydisc3 = document.getElementById("skydiscA3");
 	skydisc3.style.transform ="rotate("+skydiscA3Rotation+"deg)";
 	skydisc3.style.transform ="-webkit-rotate("+skydiscA3Rotation+"deg)";
@@ -212,6 +289,26 @@ function updateAlarmScreen() {
 	$('#alarm3').css({ 
 	 	'background-image': "url(" + sceneryArray[sceneryIndex] + ")"
 	 });
+
+	var starHeightPercentage = ((-5)*Math.sin(((skydiscA3RotationShifted)/180) - 0.5));
+	$('#starsA3').css({ 
+		'opacity': (Math.abs(skydiscA3Rotation - 180)-90)/90,
+		'margin-left': (skydiscA3RotationShifted) - ($(window).width()/4) - 2*($(window).width()/3),// - ($(window).width()/3),
+		'margin-top': (-skydiscA3RotationShifted / 2) //+ ($(window).width()/16)
+	});
+
+	var sunHeightA3Percentage = ((-15)*Math.sin((skydiscA3Rotation/90) -0.5)) + 10;
+	 $('#sunA3').css({ 
+	 	'margin-left': ((skydiscA3Rotation - 120)/2)/100 * $(window).width() + $(window).width()/20 - ($(window).width()/3)*2,// + (2*$(window).width()/3),// + "%",
+	 	'margin-top': sunHeightA3Percentage * ($(window).width() * 0.01)
+	 });
+
+	var moonHeightPercentage = ((-15)*Math.sin((skydiscA3RotationShifted/90) -0.5)) + 15;
+	$('#moonA3').css({ 
+		'margin-left': ((skydiscA3RotationShifted - 120)/2)/100 * $(window).width() + $(window).width()/20 - ($(window).width()/3)*2,
+		'margin-top': moonHeightPercentage * ($(window).width() * 0.01)
+	});
+
 }
 
  function rotateSkydisc() {
