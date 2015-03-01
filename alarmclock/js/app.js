@@ -12,12 +12,12 @@
 // END SAMPLE CODE//////////////////////////////
 
 
-$(document).ready(function() {
-	// setTimeout(function(){
-	// $('body').addClass('visible');
-	console.log("ready");
-	// }, 3000);
-});
+// $(document).ready(function() {
+// 	// setTimeout(function(){
+// 	// $('body').addClass('visible');
+// 	console.log("ready");
+// 	// }, 3000);
+// });
 
 // var supportsOrientationChange = "onorientationchange" in window,
 //     orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
@@ -32,29 +32,147 @@ var skydiscA1Rotation = Math.random()*360;
 var skydiscA2Rotation = Math.random()*360;
 var skydiscA3Rotation = Math.random()*360;
 
-$("#alarm1").click(function() {
-	skydiscRotation = skydiscA1Rotation;
-	$('#setAlarm').addClass("animate fadeIn");
-	$('#setAlarm').css({ 
-	 	'visibility': "visible"
-	});
+var currentAlarm = 0;
+
+var a1Armed = true;
+var a2Armed = true;
+var a3Armed = true;
+
+var alarm1 = document.getElementById("alarm1");
+var hpA1 = new Hammer.Manager(alarm1);
+
+hpA1.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+hpA1.add( new Hammer.Tap({ event: 'singletap' }) );
+
+hpA1.get('doubletap').recognizeWith('singletap');
+hpA1.get('singletap').requireFailure('doubletap');
+
+hpA1.on("singletap", function(ev) {
+    a1Armed = !a1Armed;
+	if (a1Armed) {
+		$('#a1Armed').css({ 
+		 	'opacity': "0"
+		});
+	} else {
+		$('#a1Armed').css({ 
+		 	'opacity': "0.9"
+		});
+	}
+});
+hpA1.on("doubletap", function(ev) {
+    skydiscRotation = skydiscA1Rotation;
+	fadeSetAlarmIn();
+	currentAlarm = 1;
 });
 
-$("#alarm2").click(function() {
-	skydiscRotation = skydiscA2Rotation;
-	$('#setAlarm').addClass("animate fadeIn");
-	$('#setAlarm').css({ 
-	 	'visibility': "visible"
-	});
+
+var alarm2 = document.getElementById("alarm2");
+var hpA2 = new Hammer.Manager(alarm2);
+
+hpA2.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+hpA2.add( new Hammer.Tap({ event: 'singletap' }) );
+
+hpA2.get('doubletap').recognizeWith('singletap');
+hpA2.get('singletap').requireFailure('doubletap');
+
+hpA2.on("singletap", function(ev) {
+    a2Armed = !a2Armed;
+	if (a2Armed) {
+		$('#a2Armed').css({ 
+		 	'opacity': "0"
+		});
+		console.log("huh");
+	} else {
+		$('#a2Armed').css({ 
+		 	'opacity': "0.9"
+		});
+	}
+});
+hpA2.on("doubletap", function(ev) {
+    skydiscRotation = skydiscA2Rotation;
+	fadeSetAlarmIn();
+	currentAlarm = 2;
 });
 
-$("#alarm3").click(function() {
-	skydiscRotation = skydiscA3Rotation;
+
+var alarm3 = document.getElementById("alarm3");
+var hpA3 = new Hammer.Manager(alarm3);
+
+hpA3.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+hpA3.add( new Hammer.Tap({ event: 'singletap' }) );
+
+hpA3.get('doubletap').recognizeWith('singletap');
+hpA3.get('singletap').requireFailure('doubletap');
+
+hpA3.on("singletap", function(ev) {
+    a3Armed = !a3Armed;
+	if (a3Armed) {
+		$('#a3Armed').css({ 
+		 	'opacity': "0"
+		});
+	} else {
+		$('#a3Armed').css({ 
+		 	'opacity': "0.9"
+		});
+	}
+});
+hpA3.on("doubletap", function(ev) {
+    skydiscRotation = skydiscA3Rotation;
+	fadeSetAlarmIn();
+	currentAlarm = 3;
+});
+
+// $("#alarm1").click(function() {
+// 	skydiscRotation = skydiscA1Rotation;
+// 	fadeSetAlarmIn();
+// 	currentAlarm = 1;
+// });
+
+// $("#alarm2").click(function() {
+// 	skydiscRotation = skydiscA2Rotation;
+// 	fadeSetAlarmIn();
+// 	currentAlarm = 2;
+// });
+
+// $("#alarm3").click(function() {
+// 	skydiscRotation = skydiscA3Rotation;
+// 	fadeSetAlarmIn();
+// 	currentAlarm = 3;
+// });
+
+function fadeSetAlarmIn() {
+	$('#setAlarm').removeClass("fadeOut");
 	$('#setAlarm').addClass("animate fadeIn");
+	$('#setAlarm').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', showSetAlarm);
 	$('#setAlarm').css({ 
 	 	'visibility': "visible"
 	});
-});
+	$('#skydisc-hammer-pad').css({ 
+	 	'visibility': "visible"
+	});
+	$('#skydisc').css({ 
+	 	'visibility': "visible",
+	});
+	$('#stars').css({ 
+	 	'visibility': "visible",
+	});
+	$('#scenery').css({ 
+	 	'visibility': "visible",
+	});
+	$('#sun').css({ 
+	 	'visibility': "visible",
+	});
+	$('#moon').css({ 
+	 	'visibility': "visible",
+	});
+	console.log("fadeIn");
+}
+
+function showSetAlarm() {
+	$('#setAlarm').css({ 
+	 	'opacity': "1"
+	});
+}
 ////////////////////////////////////////////////
 
 //SCENERY///////////////////////////////////////
@@ -119,13 +237,76 @@ sd.on("panleft", function(ev) {
 sd.on("panright", function(ev) {
 	skydiscAcceleration += skydiscAccelerationRate;
 	rotateSkydisc();
+	console.log("pan");
 });
+
+sd.on("doubletap", function(ev) {
+	// skydiscAcceleration += skydiscAccelerationRate;
+	// rotateSkydisc();
+	// console.log("pan");
+	if (currentAlarm == 1) {
+		skydiscA1Rotation = skydiscRotation;
+	} else if (currentAlarm == 2) {
+		skydiscA2Rotation = skydiscRotation;
+	} else if (currentAlarm == 3) {
+		skydiscA3Rotation = skydiscRotation;
+	}
+
+	updateAlarmScreen();
+
+	
+	$('#setAlarm').addClass("animate fadeOut");
+	$('#setAlarm').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', hideSetAlarm);
+	
+});
+
+function hideSetAlarm() {
+	$('#setAlarm').removeClass("fadeIn");
+	$('#setAlarm').css({ 
+	 	'visibility': "hidden",
+	 	'opacity': "0"
+	});
+	$('#skydisc-hammer-pad').css({ 
+	 	'visibility': "hidden",
+	});
+	$('#skydisc').css({ 
+	 	'visibility': "hidden",
+	});
+	$('#stars').css({ 
+	 	'visibility': "hidden",
+	});
+	$('#scenery').css({ 
+	 	'visibility': "hidden",
+	});
+	$('#sun').css({ 
+	 	'visibility': "hidden",
+	});
+	$('#moon').css({ 
+	 	'visibility': "hidden",
+	});
+}
+
+// sd.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+// // // Single tap recognizer
+// // sd.add( new Hammer.Tap({ event: 'singletap' }) );
+
+
+// // // we want to recognize this simulatenous, so a quadrupletap will be detected even while a tap has been recognized.
+// // sd.get('doubletap').recognizeWith('singletap');
+// // // we only want to trigger a tap, when we don't have detected a doubletap
+// // sd.get('singletap').requireFailure('doubletap');
+
+
+// sd.on("doubletap", function(ev) {
+// 	console.log("double");
+//     //myElement.textContent += ev.type +" ";
+// });
 
 function update() {
 	// console.log("updating");
 	if ((skydiscAcceleration > 0 && skydiscAcceleration < 0.05) || (skydiscAcceleration < 0 && skydiscAcceleration > -0.05)) {
 		skydiscAcceleration = 0;
-		console.log("end rotation");
+		// console.log("end rotation");
 	} else {
 		skydiscAcceleration *= skydiscFriction;
 	}
@@ -166,7 +347,7 @@ function update() {
 	var sunHeightPercentage = ((-15)*Math.sin((skydiscRotation/90) -0.5)) + 10;
 	 $('#sun').css({ 
 	 	'margin-left': ((skydiscRotation - 120)/2)/100 * $(window).width() + $(window).width()/20,// + "%",
-	 	'margin-top': sunHeightPercentage * ($(window).width() * 0.01)
+	 	'margin-top': sunHeightPercentage * ($(window).height() * 0.01) + ($(window).height() / 100)
 	 });
 	 
 
@@ -174,10 +355,10 @@ function update() {
 	 var moonHeightPercentage = ((-15)*Math.sin((skydiscRotationShifted/90) -0.5)) + 15;
 	 $('#moon').css({ 
 	 	'margin-left': ((skydiscRotationShifted - 120)/2)/100 * $(window).width() + $(window).width()/20,
-	 	'margin-top': moonHeightPercentage * ($(window).width() * 0.01)
+	 	'margin-top': moonHeightPercentage * ($(window).height() * 0.01) + ($(window).height() / 70)
 	 });
 
-	 console.log(moonHeightPercentage);
+	 // console.log(moonHeightPercentage);
 
 	//Owl
 	if (skydiscRotation > 315 || skydiscRotation < 45) {
@@ -226,16 +407,16 @@ function updateAlarmScreen() {
 	var sunHeightA1Percentage = ((-15)*Math.sin((skydiscA1Rotation/90) -0.5)) + 10;
 	 $('#sunA1').css({ 
 	 	'margin-left': ((skydiscA1Rotation - 120)/2)/100 * $(window).width() + $(window).width()/20,// + "%",
-	 	'margin-top': sunHeightA1Percentage * ($(window).width() * 0.01)
+	 	'margin-top': sunHeightA1Percentage * ($(window).height() * 0.01) + ($(window).height() / 100)
 	 });
 
 	var moonHeightPercentage = ((-15)*Math.sin((skydiscA1RotationShifted/90) -0.5)) + 15;
 	$('#moonA1').css({ 
 		'margin-left': ((skydiscA1RotationShifted - 120)/2)/100 * $(window).width() + $(window).width()/20,
-		'margin-top': moonHeightPercentage * ($(window).width() * 0.01)
+		'margin-top': moonHeightPercentage * ($(window).height() * 0.01) + ($(window).height() / 70)
 	});
 
-	console.log($(window).width()/3);
+	// console.log($(window).width()/3);
 
 
 	var skydiscA2RotationShifted = skydiscA2Rotation + 180;
@@ -264,13 +445,13 @@ function updateAlarmScreen() {
 	var sunHeightA2Percentage = ((-15)*Math.sin((skydiscA2Rotation/90) -0.5)) + 10;
 	 $('#sunA2').css({ 
 	 	'margin-left': ((skydiscA2Rotation - 120)/2)/100 * $(window).width() + $(window).width()/20 - $(window).width()/3,// + "%",
-	 	'margin-top': sunHeightA2Percentage * ($(window).width() * 0.01)
+	 	'margin-top': sunHeightA2Percentage * ($(window).height() * 0.01) + ($(window).height() / 100)
 	 });
 
 	var moonHeightPercentage = ((-15)*Math.sin((skydiscA2RotationShifted/90) -0.5)) + 15;
 	$('#moonA2').css({ 
 		'margin-left': ((skydiscA2RotationShifted - 120)/2)/100 * $(window).width() + $(window).width()/20 - $(window).width()/3,
-		'margin-top': moonHeightPercentage * ($(window).width() * 0.01)
+		'margin-top': moonHeightPercentage * ($(window).height() * 0.01) + ($(window).height() / 70)
 	});
 
 
@@ -300,13 +481,13 @@ function updateAlarmScreen() {
 	var sunHeightA3Percentage = ((-15)*Math.sin((skydiscA3Rotation/90) -0.5)) + 10;
 	 $('#sunA3').css({ 
 	 	'margin-left': ((skydiscA3Rotation - 120)/2)/100 * $(window).width() + $(window).width()/20 - ($(window).width()/3)*2,// + (2*$(window).width()/3),// + "%",
-	 	'margin-top': sunHeightA3Percentage * ($(window).width() * 0.01)
+	 	'margin-top': sunHeightA3Percentage * ($(window).height() * 0.01) + ($(window).height() / 100)
 	 });
 
 	var moonHeightPercentage = ((-15)*Math.sin((skydiscA3RotationShifted/90) -0.5)) + 15;
 	$('#moonA3').css({ 
 		'margin-left': ((skydiscA3RotationShifted - 120)/2)/100 * $(window).width() + $(window).width()/20 - ($(window).width()/3)*2,
-		'margin-top': moonHeightPercentage * ($(window).width() * 0.01)
+		'margin-top': moonHeightPercentage * ($(window).height() * 0.01) + ($(window).height() / 70)
 	});
 
 }

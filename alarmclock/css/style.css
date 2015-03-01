@@ -23,6 +23,7 @@
 	height: 100%;
 	/*background-color: black;*/
 	z-index: 100;
+	visibility: inherit;
 }
 
 #skydisc {
@@ -32,6 +33,7 @@
 	margin-left: -50%;
 	margin-right: -50%;
 	overflow: hidden;
+	visibility: inherit;
 	/*z-index: 0;*/
 	/*visibility: hidden;*/
 }
@@ -41,10 +43,12 @@
     height: auto;
     /*position: fixed;*/
     z-index: 10;
+    visibility: inherit;
 }
 
 #stars {
 	width: 150%;
+	visibility: inherit;
 }
 
 .sun {
@@ -52,12 +56,14 @@
 	width: auto;
 	z-index: -1;
 	position: absolute;
+
 }
 
 #sun {
 	height: 37%;
 	width: auto;
 	position: fixed;
+	visibility: inherit;
 }
 
 .moon {
@@ -71,6 +77,7 @@
 	height: 25%;
 	width: auto;
 	position: fixed;
+	visibility: inherit;
 }
 
 #owl {
@@ -107,6 +114,31 @@
 
 #alarm3 {
     background-position: right top;
+}
+
+.arm {
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    /*text-align:center;  Align center inline elements */
+}
+
+.arm {
+	width: 100%;
+	height: 100%;
+	background-image: url("../img/off.png");
+	background-position: center;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	/*z-index: 100;*/
+	opacity: 0;
+
 }
 
 .box {
@@ -187,7 +219,7 @@
 	background-image: url("../img/scenery.png");
 	background-size: 300% auto;
 	background-repeat: no-repeat;
-	z-index: 10;
+	z-index: 100;
 }
 
 html {
