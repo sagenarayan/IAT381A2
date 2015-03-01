@@ -1,30 +1,21 @@
-// SAMPLE CODE//////////////////////////////////
-// var myElement = document.getElementById('myElement');
+//"Mountain Time"
+//Visual Alarm Clock By Sage and Seb
 
-// // create a simple instance
-// // by default, it only adds horizontal recognizers
-// var mc = new Hammer(myElement);
+//PRELOADER/////////////////////////////////////
+$(document).ready(function(){
+    console.log("started");
+});
 
-// // listen to events...
-// mc.on("panleft panright tap press", function(ev) {
-//     myElement.textContent = ev.type +" gesture detected.";
-// });
-// END SAMPLE CODE//////////////////////////////
-
-
-// $(document).ready(function() {
-// 	// setTimeout(function(){
-// 	// $('body').addClass('visible');
-// 	console.log("ready");
-// 	// }, 3000);
-// });
-
-// var supportsOrientationChange = "onorientationchange" in window,
-//     orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
-
-// window.addEventListener(orientationEvent, function() {
-// 	window.scrollTo(0, 1);
-// }, false);
+$(window).load(function(){
+	setTimeout(function(){ 
+		console.log("loaded");
+		$( "#loader" ).fadeOut( 3000, function() {
+		});
+	 }, 1000);
+    
+    $('#alarmList').removeClass("hide");
+    $('#setAlarm').removeClass("hide");
+});
 
 
 //ALARM SCREEN//////////////////////////////////
@@ -81,7 +72,6 @@ hpA2.on("singletap", function(ev) {
 		$('#a2Armed').css({ 
 		 	'opacity': "0"
 		});
-		console.log("huh");
 	} else {
 		$('#a2Armed').css({ 
 		 	'opacity': "0.9"
@@ -122,23 +112,6 @@ hpA3.on("doubletap", function(ev) {
 	currentAlarm = 3;
 });
 
-// $("#alarm1").click(function() {
-// 	skydiscRotation = skydiscA1Rotation;
-// 	fadeSetAlarmIn();
-// 	currentAlarm = 1;
-// });
-
-// $("#alarm2").click(function() {
-// 	skydiscRotation = skydiscA2Rotation;
-// 	fadeSetAlarmIn();
-// 	currentAlarm = 2;
-// });
-
-// $("#alarm3").click(function() {
-// 	skydiscRotation = skydiscA3Rotation;
-// 	fadeSetAlarmIn();
-// 	currentAlarm = 3;
-// });
 
 function fadeSetAlarmIn() {
 	$('#setAlarm').removeClass("fadeOut");
@@ -165,7 +138,7 @@ function fadeSetAlarmIn() {
 	$('#moon').css({ 
 	 	'visibility': "visible",
 	});
-	console.log("fadeIn");
+	// console.log("fadeIn");
 }
 
 function showSetAlarm() {
@@ -173,7 +146,6 @@ function showSetAlarm() {
 	 	'opacity': "1"
 	});
 }
-////////////////////////////////////////////////
 
 //SCENERY///////////////////////////////////////
 var sceneryArray = new Array();
@@ -184,24 +156,6 @@ for (var i = 0; i < 20; i++) {
 
 
 //SKYDISC///////////////////////////////////////
-// $(window).resize(function () {
-// 	var skydiscWidth = $('#skydisc').width();
-// 	var skydiscHeight = $('#skydisc').height();
-// 	if (skydiscWidth > skydiscHeight) {
-// 		$('#skydisc').css({
-// 			// "width": window.innerWidth
-// 		    'height': skydiscWidth + 'px'
-		    
-// 		});
-// 	} else {
-// 		$('#skydisc').css({
-// 			// "height": window.innerHeight
-// 		    'width': skydiscHeight + 'px'
-
-// 		});
-// 	}
-// });
-
 window.onload = init;
 
 window.setInterval(update, 1000/30);
@@ -211,9 +165,7 @@ function init() {
 }
  
 function disableDraggingFor(element) {
-  // this works for FireFox and WebKit in future according to http://help.dottoro.com/lhqsqbtn.php
   element.draggable = false;
-  // this works for older web layout engines
   element.onmousedown = function(event) {
     event.preventDefault();
     return false;
@@ -231,19 +183,13 @@ var sd = new Hammer(skydiscHammerPad);
 
 sd.on("panleft", function(ev) {
 	skydiscAcceleration -= skydiscAccelerationRate;
-	rotateSkydisc();
 });
 
 sd.on("panright", function(ev) {
 	skydiscAcceleration += skydiscAccelerationRate;
-	rotateSkydisc();
-	console.log("pan");
 });
 
 sd.on("doubletap", function(ev) {
-	// skydiscAcceleration += skydiscAccelerationRate;
-	// rotateSkydisc();
-	// console.log("pan");
 	if (currentAlarm == 1) {
 		skydiscA1Rotation = skydiscRotation;
 	} else if (currentAlarm == 2) {
@@ -285,22 +231,6 @@ function hideSetAlarm() {
 	 	'visibility': "hidden",
 	});
 }
-
-// sd.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
-// // // Single tap recognizer
-// // sd.add( new Hammer.Tap({ event: 'singletap' }) );
-
-
-// // // we want to recognize this simulatenous, so a quadrupletap will be detected even while a tap has been recognized.
-// // sd.get('doubletap').recognizeWith('singletap');
-// // // we only want to trigger a tap, when we don't have detected a doubletap
-// // sd.get('singletap').requireFailure('doubletap');
-
-
-// sd.on("doubletap", function(ev) {
-// 	console.log("double");
-//     //myElement.textContent += ev.type +" ";
-// });
 
 function update() {
 	// console.log("updating");
@@ -358,24 +288,9 @@ function update() {
 	 	'margin-top': moonHeightPercentage * ($(window).height() * 0.01) + ($(window).height() / 70)
 	 });
 
-	 // console.log(moonHeightPercentage);
-
-	//Owl
-	if (skydiscRotation > 315 || skydiscRotation < 45) {
-		$('#owl').addClass("hatch");
-		$('#owl').removeClass("fadeOut");
-	} else {
-		$('#owl').removeClass("hatch");
-		$('#owl').addClass("fadeOut");
-	}
-
-	 // console.log((skydiscRotationShifted - 100)/2);
-
-// 	$("#clone_el").css("z-index",2);
-// ele = $("#clone_el").clone().css({position:"relative","top":"-"+$("#clone_el").eq(0).height()+"px","z-index":"1"}).attr("src","/path/to/new/src");
-// $("#clone_el").after(ele).fadeOut();
-
-	// console.log(skydiscRotation + " " + skydiscAcceleration);
+	 //CHECK TIME
+	 var secondsString = (((skydiscRotation - 12 + 360)%360)*240).toString();
+	 console.log(secondsString.toHHMMSS());
 }
 
 updateAlarmScreen();
@@ -417,7 +332,6 @@ function updateAlarmScreen() {
 	});
 
 	// console.log($(window).width()/3);
-
 
 	var skydiscA2RotationShifted = skydiscA2Rotation + 180;
 	if (skydiscA2RotationShifted >= 360) {
@@ -491,10 +405,19 @@ function updateAlarmScreen() {
 	});
 
 }
-
- function rotateSkydisc() {
-// 	skydisc.style.transform ="rotate("+skydiscRotation+"deg)";
- }
 // END SKYDISC/////////////////////////////////
 
+//CREDIT: http://stackoverflow.com/a/6313008
+String.prototype.toHHMMSS = function () {
+    var sec_num = parseInt(this, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = hours+':'+minutes+':'+seconds;
+    return time;
+}
 

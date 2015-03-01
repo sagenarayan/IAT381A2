@@ -1,18 +1,46 @@
 <html lang"en">
 	<head>
 		<meta charset="utf-8">
-    	<title>Sage'n'Seb's Visual Alarm App</title>
+    	<title>Visual Alarm Clock</title>
+    	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/animateCheatSheet.css">
 		<link rel="stylesheet" type="text/css" href="css/animate.css">
-		<link rel="stylesheet" type="text/css" href="css/normalize.css">
-		
+		<!-- <link rel="stylesheet" type="text/css" href="css/normalize.css"> -->
+
 	</head> 
 
 	<body>
-		<!-- DISPLAY -->
-		<div id="alarmList" class="box">
+		<!-- PRELOAD -->
+		<img class="preload" src="img/off.png">
+		<img class="preload" src="img/scenery.png">
+		<img class="preload" src="img/scenery/scenery-0.png">
+		<img class="preload" src="img/scenery/scenery-1.png">
+		<img class="preload" src="img/scenery/scenery-2.png">
+		<img class="preload" src="img/scenery/scenery-3.png">
+		<img class="preload" src="img/scenery/scenery-4.png">
+		<img class="preload" src="img/scenery/scenery-5.png">
+		<img class="preload" src="img/scenery/scenery-6.png">
+		<img class="preload" src="img/scenery/scenery-7.png">
+		<img class="preload" src="img/scenery/scenery-8.png">
+		<img class="preload" src="img/scenery/scenery-9.png">
+		<img class="preload" src="img/scenery/scenery-10.png">
+		<img class="preload" src="img/scenery/scenery-11.png">
+		<img class="preload" src="img/scenery/scenery-12.png">
+		<img class="preload" src="img/scenery/scenery-13.png">
+		<img class="preload" src="img/scenery/scenery-14.png">
+		<img class="preload" src="img/scenery/scenery-15.png">
+		<img class="preload" src="img/scenery/scenery-16.png">
+		<img class="preload" src="img/scenery/scenery-17.png">
+		<img class="preload" src="img/scenery/scenery-18.png">
+		<img class="preload" src="img/scenery/scenery-19.png">
 
+		<!-- DISPLAY -->
+		<div id="loader">
+			<h1>Mountain Time</h1>
+			<p>A Visual Alarm Clock by Sage and Seb</p>
+		</div>
+		<div id="alarmList" class="box hide">
 			<div id="alarm1Skydisc" class="alarmSkydisc">
 				<div class="edges">
 					<img id="skydiscA1" src="img/skydisc.png">
@@ -50,7 +78,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="setAlarm">
+		<div id="setAlarm" class="hide">
 			<div id="skydisc-hammer-pad">
 			</div>
 			<img id="skydisc" src="img/skydisc.png">
@@ -58,14 +86,13 @@
 			<img id="stars" class="scene-object" src="img/stars.png">
 			<img id="sun" src="img/sun.png">
 			<img id="moon" src="img/moon.png">
-			<!-- <img src="img/moon.png"> -->
-			<!-- <img id="owl" class="scene-object animated" src="img/owl.png"> -->
 		</div>
 		<!-- END DISPLAY -->
 
 		<!-- JAVASCRIPT -->
 		<script src="js/jquery-1.11.2.min.js"></script>
 		<script src="js/hammer.min.js"></script>
+		<script src="js/moment.js"></script>
 		<script src="js/app.js"></script>
 		<!-- END JAVASCRIPT -->
 	</body>
