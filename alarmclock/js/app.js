@@ -1,9 +1,42 @@
 //"Mountain Time"
 //Visual Alarm Clock By Sage and Seb
 
+var skydiscA1Rotation = Math.random()*360;
+var skydiscA2Rotation = Math.random()*360;
+var skydiscA3Rotation = Math.random()*360;
+
+var currentAlarm = 0;
+
+var a1Armed = true;
+var a2Armed = true;
+var a3Armed = true;
+
+var alarm1 = document.getElementById("alarm1");
+var hpA1 = new Hammer.Manager(alarm1);
+var alarm2 = document.getElementById("alarm2");
+var hpA2 = new Hammer.Manager(alarm2);
+var alarm3 = document.getElementById("alarm3");
+var hpA3 = new Hammer.Manager(alarm3);
+
+//SCENERY///////////////////////////////////////
+var sceneryArray = new Array();
+for (var i = 0; i < 20; i++) {
+	sceneryArray[i] = "img/scenery/scenery-" + i + ".png";
+}
+//END SCENERY///////////////////////////////////
+
+var skydiscRotation = 0;
+var skydiscAcceleration = 0;
+var skydiscFriction = 0.92;
+var skydiscAccelerationRate = 0.2;
+var skydisc = document.getElementById("skydisc");
+var skydiscHammerPad = document.getElementById("skydisc-hammer-pad");
+var sd = new Hammer(skydiscHammerPad);
+
 //PRELOADER/////////////////////////////////////
 $(document).ready(function(){
     console.log("started");
+    init();
 });
 
 $(window).load(function(){
@@ -17,100 +50,116 @@ $(window).load(function(){
     $('#setAlarm').removeClass("hide");
 });
 
+function init() {
+  disableDraggingFor(document.getElementById("skydisc-hammer-pad"));
+  createHammerPads();
+  updateAlarmScreen();
+}
+
+function createHammerPads() {
+	hpA1.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+	hpA1.add( new Hammer.Tap({ event: 'singletap' }) );
+
+	hpA1.get('doubletap').recognizeWith('singletap');
+	hpA1.get('singletap').requireFailure('doubletap');
+
+	hpA1.on("singletap", function(ev) {
+	    a1Armed = !a1Armed;
+		if (a1Armed) {
+			$('#a1Armed').css({ 
+			 	'opacity': "0"
+			});
+			console.log("armed");
+		} else {
+			$('#a1Armed').css({ 
+			 	'opacity': "0.9"
+			});
+			console.log("armednot");
+		}
+	});
+	hpA1.on("doubletap", function(ev) {
+	    skydiscRotation = skydiscA1Rotation;
+		fadeSetAlarmIn();
+		currentAlarm = 1;
+	});
+
+
+
+	hpA2.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+	hpA2.add( new Hammer.Tap({ event: 'singletap' }) );
+
+	hpA2.get('doubletap').recognizeWith('singletap');
+	hpA2.get('singletap').requireFailure('doubletap');
+
+	hpA2.on("singletap", function(ev) {
+	    a2Armed = !a2Armed;
+		if (a2Armed) {
+			$('#a2Armed').css({ 
+			 	'opacity': "0"
+			});
+		} else {
+			$('#a2Armed').css({ 
+			 	'opacity': "0.9"
+			});
+		}
+	});
+	hpA2.on("doubletap", function(ev) {
+	    skydiscRotation = skydiscA2Rotation;
+		fadeSetAlarmIn();
+		currentAlarm = 2;
+	});
+
+
+
+	hpA3.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+	hpA3.add( new Hammer.Tap({ event: 'singletap' }) );
+
+	hpA3.get('doubletap').recognizeWith('singletap');
+	hpA3.get('singletap').requireFailure('doubletap');
+
+	hpA3.on("singletap", function(ev) {
+	    a3Armed = !a3Armed;
+		if (a3Armed) {
+			$('#a3Armed').css({ 
+			 	'opacity': "0"
+			});
+		} else {
+			$('#a3Armed').css({ 
+			 	'opacity': "0.9"
+			});
+		}
+	});
+	hpA3.on("doubletap", function(ev) {
+	    skydiscRotation = skydiscA3Rotation;
+		fadeSetAlarmIn();
+		currentAlarm = 3;
+	});
+	
+	sd.on("panleft", function(ev) {
+		skydiscAcceleration -= skydiscAccelerationRate;
+	});
+
+	sd.on("panright", function(ev) {
+		skydiscAcceleration += skydiscAccelerationRate;
+	});
+
+	sd.on("doubletap", function(ev) {
+		if (currentAlarm == 1) {
+			skydiscA1Rotation = skydiscRotation;
+		} else if (currentAlarm == 2) {
+			skydiscA2Rotation = skydiscRotation;
+		} else if (currentAlarm == 3) {
+			skydiscA3Rotation = skydiscRotation;
+		}
+		updateAlarmScreen();
+		$('#setAlarm').addClass("animate fadeOut");
+		$('#setAlarm').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', hideSetAlarm);
+		
+	});
+}
 
 //ALARM SCREEN//////////////////////////////////
-var skydiscA1Rotation = Math.random()*360;
-var skydiscA2Rotation = Math.random()*360;
-var skydiscA3Rotation = Math.random()*360;
 
-var currentAlarm = 0;
-
-var a1Armed = true;
-var a2Armed = true;
-var a3Armed = true;
-
-var alarm1 = document.getElementById("alarm1");
-var hpA1 = new Hammer.Manager(alarm1);
-
-hpA1.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
-hpA1.add( new Hammer.Tap({ event: 'singletap' }) );
-
-hpA1.get('doubletap').recognizeWith('singletap');
-hpA1.get('singletap').requireFailure('doubletap');
-
-hpA1.on("singletap", function(ev) {
-    a1Armed = !a1Armed;
-	if (a1Armed) {
-		$('#a1Armed').css({ 
-		 	'opacity': "0"
-		});
-	} else {
-		$('#a1Armed').css({ 
-		 	'opacity': "0.9"
-		});
-	}
-});
-hpA1.on("doubletap", function(ev) {
-    skydiscRotation = skydiscA1Rotation;
-	fadeSetAlarmIn();
-	currentAlarm = 1;
-});
-
-
-var alarm2 = document.getElementById("alarm2");
-var hpA2 = new Hammer.Manager(alarm2);
-
-hpA2.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
-hpA2.add( new Hammer.Tap({ event: 'singletap' }) );
-
-hpA2.get('doubletap').recognizeWith('singletap');
-hpA2.get('singletap').requireFailure('doubletap');
-
-hpA2.on("singletap", function(ev) {
-    a2Armed = !a2Armed;
-	if (a2Armed) {
-		$('#a2Armed').css({ 
-		 	'opacity': "0"
-		});
-	} else {
-		$('#a2Armed').css({ 
-		 	'opacity': "0.9"
-		});
-	}
-});
-hpA2.on("doubletap", function(ev) {
-    skydiscRotation = skydiscA2Rotation;
-	fadeSetAlarmIn();
-	currentAlarm = 2;
-});
-
-
-var alarm3 = document.getElementById("alarm3");
-var hpA3 = new Hammer.Manager(alarm3);
-
-hpA3.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
-hpA3.add( new Hammer.Tap({ event: 'singletap' }) );
-
-hpA3.get('doubletap').recognizeWith('singletap');
-hpA3.get('singletap').requireFailure('doubletap');
-
-hpA3.on("singletap", function(ev) {
-    a3Armed = !a3Armed;
-	if (a3Armed) {
-		$('#a3Armed').css({ 
-		 	'opacity': "0"
-		});
-	} else {
-		$('#a3Armed').css({ 
-		 	'opacity': "0.9"
-		});
-	}
-});
-hpA3.on("doubletap", function(ev) {
-    skydiscRotation = skydiscA3Rotation;
-	fadeSetAlarmIn();
-	currentAlarm = 3;
-});
 
 
 function fadeSetAlarmIn() {
@@ -147,22 +196,12 @@ function showSetAlarm() {
 	});
 }
 
-//SCENERY///////////////////////////////////////
-var sceneryArray = new Array();
-for (var i = 0; i < 20; i++) {
-	sceneryArray[i] = "img/scenery/scenery-" + i + ".png";
-}
-//END SCENERY///////////////////////////////////
 
 
 //SKYDISC///////////////////////////////////////
-window.onload = init;
+// window.onload = init;
 
 window.setInterval(update, 1000/30);
- 
-function init() {
-  disableDraggingFor(document.getElementById("skydisc-hammer-pad"));
-}
  
 function disableDraggingFor(element) {
   element.draggable = false;
@@ -173,38 +212,7 @@ function disableDraggingFor(element) {
 }
 
 
-var skydiscRotation = 0;
-var skydiscAcceleration = 0;
-var skydiscFriction = 0.92;
-var skydiscAccelerationRate = 0.2;
-var skydisc = document.getElementById("skydisc");
-var skydiscHammerPad = document.getElementById("skydisc-hammer-pad");
-var sd = new Hammer(skydiscHammerPad);
 
-sd.on("panleft", function(ev) {
-	skydiscAcceleration -= skydiscAccelerationRate;
-});
-
-sd.on("panright", function(ev) {
-	skydiscAcceleration += skydiscAccelerationRate;
-});
-
-sd.on("doubletap", function(ev) {
-	if (currentAlarm == 1) {
-		skydiscA1Rotation = skydiscRotation;
-	} else if (currentAlarm == 2) {
-		skydiscA2Rotation = skydiscRotation;
-	} else if (currentAlarm == 3) {
-		skydiscA3Rotation = skydiscRotation;
-	}
-
-	updateAlarmScreen();
-
-	
-	$('#setAlarm').addClass("animate fadeOut");
-	$('#setAlarm').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', hideSetAlarm);
-	
-});
 
 function hideSetAlarm() {
 	$('#setAlarm').removeClass("fadeIn");
@@ -292,8 +300,6 @@ function update() {
 	 var secondsString = (((skydiscRotation - 12 + 360)%360)*240).toString();
 	 console.log(secondsString.toHHMMSS());
 }
-
-updateAlarmScreen();
 
 function updateAlarmScreen() {
 	var skydiscA1RotationShifted = skydiscA1Rotation + 180;
